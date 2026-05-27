@@ -61,3 +61,33 @@ La dockerización asegura un entorno idéntico para desarrollo y producción con
    ```
 La API estará lista y escuchando en `http://localhost:8000/api/`.
 
+## 📡 Endpoints de la API
+
+La API expone los siguientes endpoints principales:
+
+### Afiliados
+- `GET /api/affiliates/`: Listar todos los afiliados (soporta paginación y filtros `?full_name=` y `?status=`).
+- `POST /api/affiliates/`: Registrar un nuevo afiliado.
+- `GET /api/affiliates/{id}/`: Obtener detalles de un afiliado.
+- `PUT /api/affiliates/{id}/`: Actualizar un afiliado completamente.
+- `PATCH /api/affiliates/{id}/`: Actualizar parcialmente un afiliado (ej. cambiar status a INACTIVE).
+- `DELETE /api/affiliates/{id}/`: Eliminación lógica (soft delete) de un afiliado.
+
+### Aportes
+- `POST /api/contributions/`: Registrar un nuevo aporte asociado a un afiliado.
+- `DELETE /api/contributions/{id}/`: Eliminación lógica (soft delete) de un aporte.
+
+### Reportes y Resúmenes
+- `GET /api/affiliates/{id}/summary/`: Obtener el resumen de un afiliado (total aportado, cantidad de aportes, último aporte).
+- `GET /api/affiliates/{id}/contributions/`: Obtener el historial de aportes de un afiliado específico.
+- `GET /api/affiliates/dashboard-summary/`: Obtener el dashboard global de todos los afiliados y aportes.
+
+## 🚀 Pruebas con Postman
+
+Para facilitar las pruebas de los endpoints, se ha incluido una colección de Postman en la raíz del proyecto.
+
+1. Abre **Postman**.
+2. Ve a **Import** o presiona `Ctrl+O` / `Cmd+O`.
+3. Selecciona el archivo [`JlManagement_Postman_Collection.json`](./JlManagement_Postman_Collection.json) que se encuentra en la raíz del proyecto.
+4. Una vez importada, verás la colección **JlManagement API** con todos los endpoints configurados y listos para ejecutar.
+5. La colección ya incluye una variable `base_url` configurada por defecto a `http://localhost:8000`.

@@ -1,0 +1,192 @@
+{
+  "info": {
+    "name": "JlManagement API",
+    "description": "Colección de pruebas para la API de Gestión de Afiliados y Aportes",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Afiliados",
+      "item": [
+        {
+          "name": "Listar Afiliados",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", ""]
+            }
+          }
+        },
+        {
+          "name": "Crear Afiliado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"full_name\": \"Juan Pérez\",\n    \"document_type\": \"CC\",\n    \"document_number\": \"123456789\",\n    \"email\": \"juan.perez@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", ""]
+            }
+          }
+        },
+        {
+          "name": "Obtener Afiliado",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Afiliado (Completo)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"full_name\": \"Juan Pérez Modificado\",\n    \"document_type\": \"CC\",\n    \"document_number\": \"123456789\",\n    \"email\": \"juan.perez@example.com\",\n    \"status\": \"ACTIVE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Afiliado (Parcial)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"status\": \"INACTIVE\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", "1", ""]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Afiliado (Soft Delete)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", "1", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Aportes",
+      "item": [
+        {
+          "name": "Registrar Aporte",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"affiliate_id\": 1,\n    \"amount\": 50000.00,\n    \"contribution_date\": \"2023-10-01\",\n    \"payment_method\": \"TRANSFER\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/contributions/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "contributions", ""]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Aporte (Soft Delete)",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "{{base_url}}/api/contributions/1/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "contributions", "1", ""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reportes y Resúmenes",
+      "item": [
+        {
+          "name": "Resumen de Afiliado",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/1/summary/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", "1", "summary", ""]
+            }
+          }
+        },
+        {
+          "name": "Historial de Aportes por Afiliado",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/1/contributions/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", "1", "contributions", ""]
+            }
+          }
+        },
+        {
+          "name": "Dashboard Global",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/affiliates/dashboard-summary/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "affiliates", "dashboard-summary", ""]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ]
+}
