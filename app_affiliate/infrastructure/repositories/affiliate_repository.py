@@ -63,3 +63,6 @@ class AffiliateRepository(AffiliateRepositoryInterface):
             return affiliate
         except ObjectDoesNotExist:
             raise AffiliateNotFoundError(f"Affiliate with ID {affiliate_id} not found.")
+
+    def get_total_active_count(self) -> int:
+        return Affiliate.objects.filter(status='ACTIVE').count()

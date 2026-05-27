@@ -9,3 +9,7 @@ class DuplicateDocumentError(Exception):
 class InvalidContributionAmountError(Exception):
     """Raised when a contribution amount is invalid (e.g., negative or zero)."""
     pass
+
+class ContributionNotFoundError(Exception):
+    """Raised when a contribution cannot be found in the system."""
+    pass

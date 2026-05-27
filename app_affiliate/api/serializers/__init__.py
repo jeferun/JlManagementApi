@@ -16,5 +16,6 @@ class ContributionSerializer(serializers.Serializer):
     amount = serializers.DecimalField(max_digits=12, decimal_places=2)
     contribution_date = serializers.DateField()
     payment_method = serializers.ChoiceField(choices=['CASH', 'TRANSFER', 'CARD'])
+    status = serializers.ChoiceField(choices=['ACTIVE', 'INACTIVE'], default='ACTIVE')
     created_at = serializers.DateTimeField(read_only=True)
     updated_at = serializers.DateTimeField(read_only=True)

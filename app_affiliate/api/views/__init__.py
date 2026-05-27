@@ -10,6 +10,10 @@ from app_affiliate.application.services.create_affiliate import CreateAffiliate
 from app_affiliate.application.services.register_contribution import RegisterContribution
 from app_affiliate.application.services.get_affiliate_summary import GetAffiliateSummary
 from app_affiliate.application.services.get_affiliate_history import GetAffiliateHistory
+from app_affiliate.application.services.soft_delete_affiliate import SoftDeleteAffiliate
+from app_affiliate.application.services.update_affiliate import UpdateAffiliate
+from app_affiliate.application.services.soft_delete_contribution import SoftDeleteContribution
+from app_affiliate.application.services.get_global_dashboard import GetGlobalDashboard
 
 class AffiliateViewSet(viewsets.ViewSet):
     """
@@ -58,6 +62,48 @@ class AffiliateViewSet(viewsets.ViewSet):
         serializer = AffiliateSerializer(affiliate)
         return Response(serializer.data)
 
+    def update(self, request, pk=None):
+        serializer = AffiliateSerializer(data=request.data, partial=False)
+        serializer.is_valid(raise_exception=True)
+        repo = AffiliateRepository()
+        use_case = UpdateAffiliate(repo)
+        try:
+            affiliate = use_case.execute(pk, serializer.validated_data)
+            response_serializer = AffiliateSerializer(affiliate)
+            return Response(response_serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def partial_update(self, request, pk=None):
+        serializer = AffiliateSerializer(data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        repo = AffiliateRepository()
+        use_case = UpdateAffiliate(repo)
+        try:
+            affiliate = use_case.execute(pk, serializer.validated_data)
+            response_serializer = AffiliateSerializer(affiliate)
+            return Response(response_serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    def destroy(self, request, pk=None):
+        repo = AffiliateRepository()
+        use_case = SoftDeleteAffiliate(repo)
+        try:
+            use_case.execute(affiliate_id=pk)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['get'], url_path='dashboard-summary')
+    def global_dashboard(self, request):
+        affiliate_repo = AffiliateRepository()
+        contribution_repo = ContributionRepository()
+        use_case = GetGlobalDashboard(affiliate_repo, contribution_repo)
+        
+        summary = use_case.execute()
+        return Response(summary, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=['get'], url_path='summary')
     def retrieve_summary(self, request, pk=None):
         affiliate_repo = AffiliateRepository()
@@ -91,3 +137,12 @@ class ContributionViewSet(viewsets.ViewSet):
         contribution = use_case.execute(serializer.validated_data)
         response_serializer = ContributionSerializer(contribution)
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+
+    def destroy(self, request, pk=None):
+        repo = ContributionRepository()
+        use_case = SoftDeleteContribution(repo)
+        try:
+            use_case.execute(contribution_id=pk)
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)

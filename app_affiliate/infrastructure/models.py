@@ -28,11 +28,16 @@ class Contribution(models.Model):
         ('TRANSFER', 'Transfer'),
         ('CARD', 'Card'),
     ]
+    STATUS_CHOICES = [
+        ('ACTIVE', 'Active'),
+        ('INACTIVE', 'Inactive'),
+    ]
 
     affiliate = models.ForeignKey(Affiliate, on_delete=models.CASCADE, related_name='contributions')
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     contribution_date = models.DateField()
     payment_method = models.CharField(max_length=10, choices=PAYMENT_METHODS)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='ACTIVE')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -16,3 +16,8 @@ class ContributionRepositoryInterface(ABC):
     def get_summary_by_affiliate(self, affiliate_id: int) -> Dict[str, Any]:
         """Aggregate summary statistics of contributions for an affiliate."""
         pass
+
+    @abstractmethod
+    def switch_status(self, contribution_id: int, new_status: str) -> Any:
+        """Switch the status of a contribution (e.g. for soft-delete)."""
+        pass
