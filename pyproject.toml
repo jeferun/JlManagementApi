@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jlmanagementapi"
+version = "0.1.0"
+description = "API to manage affiliates and their monthly contributions"
+authors = [
+    { name = "Author" }
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "Django>=5.1",
+    "djangorestframework>=3.15.2",
+    "django-filter>=24.2",
+    "psycopg2-binary>=2.9.9"
+]
+
+[tool.setuptools.packages.find]
+include = ["core_project", "app_affiliate"]
