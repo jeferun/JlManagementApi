@@ -88,6 +88,6 @@ Para facilitar las pruebas de los endpoints, se ha incluido una colección de Po
 
 1. Abre **Postman**.
 2. Ve a **Import** o presiona `Ctrl+O` / `Cmd+O`.
-3. Selecciona el archivo [`JlManagement_Postman_Collection.json`](./JlManagement_Postman_Collection.json) que se encuentra en la raíz del proyecto.
+3. Selecciona el archivo [`JlManagement_Postman_Collection.json`](./JlManagement_Postman_Collection.json) que se encuentra en la carpeta doc del proyecto.
 4. Una vez importada, verás la colección **JlManagement API** con todos los endpoints configurados y listos para ejecutar.
 5. La colección ya incluye una variable `base_url` configurada por defecto a `http://localhost:8000`.
